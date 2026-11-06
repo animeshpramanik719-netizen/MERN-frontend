@@ -1,11 +1,8 @@
 // Centralized configuration for API and media URLs
-// Dynamically detects current hostname so local network testing (iPhone / Android on Wi-Fi) works out of the box.
+// Production backend hosted on Render: https://photo-gallery-1-d5n0.onrender.com
 
 export const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL ||
-  (typeof window !== "undefined" && window.location.hostname
-    ? `${window.location.protocol}//${window.location.hostname}:5000`
-    : "http://localhost:5000");
+  import.meta.env.VITE_BACKEND_URL || "https://photo-gallery-1-d5n0.onrender.com";
 
 export const resolveImageUrl = (url) => {
   if (!url) return "";

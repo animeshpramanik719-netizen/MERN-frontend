@@ -325,7 +325,11 @@ router.put('/profile', auth, uploadAvatar.single('profilePicture'), async (req, 
     if (req.file) {
       // Delete old avatar if exists
       if (user.profilePicture) {
-        const oldPath = path.join(__dirname, '..', user.profilePicture.replace('http://localhost:5000', ''));
+        const cleanPath = user.profilePicture
+          .replace('https://photo-gallery-1-d5n0.onrender.com', '')
+          .replace('http://localhost:5000', '')
+          .replace(/^https?:\/\/[^/]+/, '');
+        const oldPath = path.join(__dirname, '..', cleanPath);
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
       }
       user.profilePicture = `/uploads/avatars/${req.file.filename}`;
